@@ -1,0 +1,78 @@
+{% extends "homebase.html" %}
+
+{% block title %} Order List {%endblock%}
+
+{% block body %}
+<!-- Page info -->
+	<div class="page-top-info">
+		<div class="container">
+			<h4>Order List</h4>
+			<div class="site-pagination">
+				<a href="">Home</a> /
+				<a href="/order_list">Order List</a>
+			</div>
+		</div>
+	</div>
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{message.tags}}" role="alert">
+            {{message}}
+        </div>
+    {% endfor %}
+{% endif %}
+
+
+	<!-- cart section end -->
+
+	<section class="cart-section spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8">
+					<div class="cart-table">
+						<h3>Your ShopCart</h3>
+						<div class="cart-table-warp">
+							<table>
+							<thead>
+								<tr>
+									<th class="product-th">Name&Surname</th>
+									<th class="quy-th">Date</th>
+									<th class="size-th">City</th>
+									<th class="total-th">Total</th>
+                                    <th class="total-th">Status</th>
+                                    <th class="total-th">Detail</th>
+								</tr>
+							</thead>
+							<tbody>
+                            {% for rs in orders %}
+								<tr>
+									<td class="product-col">
+										<div class="pc-title">
+											<h4>{{ rs.name }} {{ rs.surname }}</h4>
+											<p>{{rs.product.price}}</p>
+										</div>
+									</td>
+									<td class="size-col"><h4>{{ rs.create_at }}</h4></td>
+									<td class="total-col"><h4>{{ rs.city }}</h4></td>
+                                    <td class="total-col"><strong class="primary-color"> {{ rs.total }}</strong></td>
+                                    <td class="total-col"><h4>{{ rs.status }}</h4></td>
+									<td class="total-col"><a href="/order/detail/{{ rs.id }}" class="site-btn"><strong>Detail</strong></td>
+
+								</tr>
+                            {% endfor %}
+							</tbody>
+						</table>
+						</div>
+					</div>
+                 <a href="/" class="site-btn sb-dark">Continue shopping</a>
+                    <a href="/order/checkout" class="site-btn">Proceed to checkout</a>
+				</div>
+
+				<div class="col-lg-4 card-right">
+                    {%include 'user_menu.html' %}
+				</div>
+
+			</div>
+		</div>
+	</section>
+	<!-- cart section end -->
+{%endblock%}

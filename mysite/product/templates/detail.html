@@ -1,0 +1,195 @@
+{% extends "homebase.html" %}
+
+{% block title %} {{ product.title }} {%endblock%}
+{% block keyword %} {{ product.keyword }} {%endblock%}
+{% block description %} {{ product.description }} {%endblock%}
+
+{% block body %}
+<!-- Page info -->
+{% load static %}
+	<div class="page-top-info">
+		<div class="container">
+			<h4>{{ product.category }}</h4>
+			<div class="site-pagination">
+				<a href="/">Home</a> /
+				<a href="">Product</a>
+				{% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{message.tags}}" role="alert">
+                                    {{message}}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+			</div>
+		</div>
+	</div>
+	<!-- Page info end -->
+
+
+	<!-- product section -->
+	<section class="product-section">
+		<div class="container">
+			<div class="back-link">
+				<a href="/category/{{product.category}}"> &lt;&lt; {{product.category }}</a>
+			</div>
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="product-pic-zoom">
+						<img class="product-big-img" src="{{ product.image.url }}" alt="">
+					</div>
+					<div class="product-thumbs" tabindex="1" style="overflow: hidden; outline: none;">
+						<div class="product-thumbs-track">
+							<div class="pt active" data-imgbigurl="{{ product.image.url }}"><img src="{{ product.image.url }}" alt=""></div>
+							{% for rs in productimage %}
+							<div class="pt active" data-imgbigurl="{{ rs.image.url }}"><img src="{{ rs.image.url }}" alt=""></div>
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6 product-details">
+					<h2 class="p-title">{{ product.title }}p</h2>
+					<h3 class="p-price">{{ product.price }} TL</h3>
+					<h2 class="p-stock">{{ product.status }} <span>In Stock</span></h2>
+					<div class="p-rating">
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o"></i>
+						<i class="fa fa-star-o fa-fade"></i>
+					</div>
+					<div class="p-review">
+						<a href="">3 reviews</a>|<a href="">Add your review</a>
+					</div>
+					<div class="fw-size-choose">
+						<p>Size</p>
+						<div class="sc-item">
+							<input type="radio" name="sc" id="xs-size">
+							<label for="xs-size">32</label>
+						</div>
+						<div class="sc-item">
+							<input type="radio" name="sc" id="s-size">
+							<label for="s-size">34</label>
+						</div>
+						<div class="sc-item">
+							<input type="radio" name="sc" id="m-size" checked="">
+							<label for="m-size">36</label>
+						</div>
+						<div class="sc-item">
+							<input type="radio" name="sc" id="l-size">
+							<label for="l-size">38</label>
+						</div>
+						<div class="sc-item disable">
+							<input type="radio" name="sc" id="xl-size" disabled>
+							<label for="xl-size">40</label>
+						</div>
+						<div class="sc-item">
+							<input type="radio" name="sc" id="xxl-size">
+							<label for="xxl-size">42</label>
+						</div>
+					</div>
+					{% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{message.tags}}" role="alert">
+                                    {{message}}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+					<form action="/order/addtocart/{{ product.id }}" method="post">
+						{% csrf_token %}
+						<div class="quantity">
+						<p>Quantity</p>
+                        <div class="pro-qty"><input class="input" type="number" name="quantity" id="id_quantity" value="1" min="1" max="{{product.amount}}"></div>
+                   		</div>
+                           <input type="submit" class="site-btn" value="Add to cart">
+
+					</form>
+
+					<div id="accordion" class="accordion-area">
+						<div class="panel">
+							<div class="panel-header" id="headingOne">
+								<button class="panel-link active" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">Detail</button>
+							</div>
+							<div id="collapse1" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+								<div class="panel-body">
+									<p>{{ product.detail|safe }}</p>
+								</div>
+							</div>
+						</div>
+						<div class="panel">
+							<div class="panel-header" id="headingTwo">
+								<button class="panel-link" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapse2">Description </button>
+							</div>
+							<div id="collapse2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+								<div class="panel-body">
+									<img src="img/cards.png" alt="">
+									<p>{{ product.description|safe }}</p>
+								</div>
+							</div>
+						</div>
+						<form class="contact-form" action="/addcomment/{{ product.id }}" method="post">
+							{% csrf_token %}
+						<div class="panel">
+							<div class="panel-header" id="headingThree">
+								<button class="panel-link" data-toggle="collapse" data-target="#collapse3" aria-expanded="false" aria-controls="collapse3">Comment</button>
+							</div>
+							<div id="collapse3" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+								<div class="form-group">
+									<input class="input" type="text" name="subject" id="id_subject" placeholder="Your Subject">
+									<div class="form-group">
+									<textarea  class="input" name="message" id="id_message" placeholder="Your Message"></textarea>
+									</div>
+										<div class="p-rating">
+											<i class="fa fa-star-o"><input type="radio" name="rating" value="1" id="star1"><label for="star1"></label></i>
+											<i class="fa fa-star-o"><input type="radio" name="rating" value="2" id="star2"><label for="star2"></label></i>
+											<i class="fa fa-star-o"><input type="radio" name="rating" value="3" id="star3"><label for="star3"></label></i>
+											<i class="fa fa-star-o"><input type="radio" name="rating" value="4" id="star4"><label for="star4"></label></i>
+											<i class="fa fa-star-o"><input type="radio" name="rating" value="5" id="star5"><label for="star5"></label></i>
+										</div>
+								</div>
+								<button class="site-btn">Submit</button>
+							</div>
+
+						</div>
+
+					</form>
+					<div class="social-sharing">
+						<a href=""><i class="fa fa-google-plus"></i></a>
+						<a href=""><i class="fa fa-pinterest"></i></a>
+						<a href=""><i class="fa fa-facebook"></i></a>
+						<a href=""><i class="fa fa-twitter"></i></a>
+						<a href=""><i class="fa fa-youtube"></i></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- product section end -->
+
+	<div class="order-summary clearfix">
+    	<div class="section-title">
+        	<h3 class="title">Comments</h3>
+    	</div>
+    	<table class="table" cellspacing="2">
+        	<thead>
+        	<tr>
+            	<th class="text-left">User Name</th>
+            	<th class="text-center">Subject</th>
+            	<th class="text-center">Comment</th>
+            	<th class="text-center">Date</th>
+				<th class="text-center">Rating</th>
+        	</tr>
+        	</thead>
+        	<tbody>
+        	{% for rs in comments %}
+            	<tr>
+                	<td class="qty text-left"> {{ rs.user.first_name }}</td>
+                	<td class="qty text-left"> {{ rs.subject }} </td>
+                	<td class="qty text-left"> {{ rs.message }} </td>
+					<td class="qty text-left"> {{ rs.create_at }} </td>
+					<td class="qty text-left"><i class="fa fa-star{% if rs.rating < 1 %}-o empty{% endif %}"></i><i class="fa fa-star{% if rs.rating < 2 %}-o empty{% endif %}"></i><i class="fa fa-star{% if rs.rating < 3 %}-o empty{% endif %}"></i><i class="fa fa-star{% if rs.rating < 4 %}-o empty{% endif %}"></i><i class="fa fa-star{% if rs.rating < 5 %}-o empty{% endif %}"></i></td>
+ 				</tr>
+        	{% endfor %}
+        	</tbody>
+    	</table>
+	</div>
+{% endblock %}

@@ -1,0 +1,100 @@
+{% extends "homebase.html" %}
+
+{% block title %} Order Detail {%endblock%}
+
+{% block body %}
+<!-- Page info -->
+	<div class="page-top-info">
+		<div class="container">
+			<h4>Order Detail</h4>
+			<div class="site-pagination">
+				<a href="/">Home</a> /
+				<a href="/order">Order Detail</a>
+			</div>
+		</div>
+	</div>
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{message.tags}}" role="alert">
+            {{message}}
+        </div>
+    {% endfor %}
+{% endif %}
+
+<div class="col-md-8">
+    <div class="billing-details">
+        <table class="shopping cart-table table">
+            <thead>
+            <tr>
+                <th>Name</th> <td>{{ order.name }}</td>
+            </tr>
+            <tr>
+                <th>Surname</th> <td>{{ order.surname }}</td>
+            </tr>
+            <tr>
+                <th>Address</th> <td>{{ order.address }}</td>
+            </tr>
+            <tr>
+                <th>City</th> <td>{{ order.city }}</td>
+            </tr>
+            <tr>
+                <th>Phone Number</th> <td>{{ order.phone }}</td>
+            </tr>
+             <tr>
+                <th>Date</th> <td>{{ order.create_at }}</td>
+            </tr>
+             <tr>
+                <th>Note</th> <td>{{ order.note }}</td>
+            </tr>
+             <tr>
+                <th>Status</th> <td>{{ order.status }}</td>
+            </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+<section class="cart-section spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8">
+
+					<div class="cart-table">
+						<h3>Your ShopCart</h3>
+						<div class="cart-table-warp">
+							<table>
+							<thead>
+								<tr>
+									<th class="product-th">Product</th>
+									<th class="quy-th">Quantity</th>
+									<th class="size-th">Price</th>
+								</tr>
+							</thead>
+							<tbody>
+                            {% for rs in items %}
+								<tr>
+									<td class="product-col">
+										<img src="{{ rs.product.image.url }}" alt="">
+										<div class="pc-title">
+											<h4>{{ rs.product.title}}</h4>
+											<p>${{rs.product.price}}</p>
+										</div>
+									</td>
+									<td class="quy-col">
+										<div class="quantity">
+					                        <div class="pro-qty">
+												<input type="text" value="{{rs.quantity}}">
+											</div>
+                    					</div>
+									</td>
+									<td class="size-col"><h4>{{rs.total}}</h4></td>
+                                    <td></td>
+								</tr>
+                            {% endfor %}
+							</tbody>
+						</table>
+						</div>
+					</div>
+			</div>
+		</div>
+</section>
+{%endblock%}

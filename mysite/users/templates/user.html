@@ -1,0 +1,55 @@
+{% extends "homebase.html" %}
+
+{% block title %} Profile {%endblock%}
+
+{% load static %}
+{% block body %}
+<!-- Page info -->
+	<div class="page-top-info">
+		<div class="container">
+			<h4>Contact</h4>
+			<div class="site-pagination">
+				<a href="/">Home</a> /
+				<a href="/contact">Profile</a>
+			</div>
+		</div>
+	</div>
+	<!-- Page info end -->
+	<!-- Contact section -->
+	<section class="contact-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 contact-info">
+					<h3>Profile</h3>
+                    <div class="order-summary clearfix">
+    <div class="section-title">
+        <h3 class="title">My Comments</h3>
+    </div>
+    <table class="table" cellspacing="2">
+        <thead>
+        <tr>
+            <th class="text-left">Name</th>
+            <th class="text-center">Surname</th>
+            <th class="text-center">Email Adress</th>
+            <th class="text-center">Username</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for rs in profile_user %}
+            <tr>
+                <td class="qty text-left">{{ rs.name }}</td>
+                <td class="qty text-left">{{ rs.last_name }}</td>
+                <td class="qty text-left">{{ rs.email }}</td>
+                <td class="qty text-left">{{ rs.username }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+				</div>
+			</div>
+		</div>
+    </section>
+	<!-- Contact section end -->
+{% endblock %}

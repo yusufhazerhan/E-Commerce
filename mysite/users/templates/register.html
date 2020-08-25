@@ -1,0 +1,51 @@
+{% extends "homebase.html" %}
+
+{% block title %} Contact {%endblock%}
+
+{% load static %}
+{% block body %}
+	<!-- Page info -->
+	<div class="page-top-info">
+		<div class="container">
+			<h4>Contact</h4>
+			<div class="site-pagination">
+				<a href="/login">Already have an account</a>
+
+			</div>
+		</div>
+	</div>
+	<!-- Page info end -->
+
+
+	<!-- Contact section -->
+	<section class="contact-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 contact-info">
+					<h3>Register Page</h3>
+					<div class="contact-social">
+						<a href="#"><i class="fa fa-pinterest"></i></a>
+						<a href="#"><i class="fa fa-facebook"></i></a>
+						<a href="#"><i class="fa fa-twitter"></i></a>
+						<a href="#"><i class="fa fa-dribbble"></i></a>
+						<a href="#"><i class="fa fa-behance"></i></a>
+						{% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }}" role="alert">
+                                    {{message}}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+					</div>
+					<form class="contact-form" method="POST">
+						{% csrf_token %}
+                        {{ form.as_p }}
+						<button class="site-btn"type="submit">REGISTER NOW</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Contact section end -->
+
+{% endblock %}

@@ -1,0 +1,83 @@
+{% load static %}
+	<!-- letest product section -->
+	<section class="top-letest-product-section">
+		<div class="container">
+			<div class="section-title">
+				<h2>LATEST PRODUCTS</h2>
+			</div>
+			<div class="product-slider owl-carousel">
+				{% for rs in productList %}
+				<div class="product-item">
+					<div class="pi-pic">
+						<div class="tag-new">New</div>
+						<a href="/product/{{ rs.id }}"><img src="{{ rs.image.url }}" alt=""></a>
+						<div class="pi-links">
+							<a href="/product/{{ rs.id }}" class="add-card"><i class="flaticon-bag"></i><span>Sepete Ekle</span></a>
+							<a href="/product/{{ rs.id }}" class="wishlist-btn"><i class="flaticon-heart"></i></a>
+						</div>
+					</div>
+					<div class="pi-text">
+						<h6>{{ rs.price }}</h6>
+						<a href="product/{{ rs.id }}"> <p>{{ rs.title }}</p> </a>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+	</section>
+
+
+
+	<!-- letest product section end -->
+
+
+
+	<!-- Product filter section -->
+	<section class="product-filter-section">
+		<div class="container">
+			<div class="section-title">
+				<h2>BROWSE TOP SELLING PRODUCTS</h2>
+			</div>
+			<ul class="product-filter-menu">
+				{% for rs in categoryList %}
+				<li><a href="/category/{{ rs.id }}">{{ rs.title }}</a></li>
+				{% endfor %}
+			</ul>
+
+			<div class="row">
+			{% for rs in sliderList %}
+				<div class="col-lg-3 col-sm-6">
+					<div class="product-item">
+						<div class="pi-pic">
+							<a href="/product/{{ rs.id }}"><img src="{{ rs.image.url }}" alt=""></a>
+							<div class="pi-links">
+								<a href="/product/{{ rs.id }}" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>
+								<a href="/product/{{ rs.id }}" class="wishlist-btn"><i class="flaticon-heart"></i></a>
+							</div>
+						</div>
+						<div class="pi-text">
+							<h6>{{rs.price}}</h6>
+							<p><a href="product/{{ rs.id }}">{{rs.title}}</a></p>
+						</div>
+					</div>
+
+				</div>
+			{% endfor %}
+
+		</div>
+	</section>
+	<!-- Product filter section end -->
+
+
+	<!-- Banner section -->
+	<section class="banner-section">
+		<div class="container">
+			<div class="banner set-bg" data-setbg="{%static 'img/banner-bg.jpg'%}">
+				<div class="tag-new">NEW</div>
+				<span>New Arrivals</span>
+				<h2>STRIPED SHIRTS</h2>
+				<a href="#" class="site-btn">SHOP NOW</a>
+			</div>
+		</div>
+	</section>
+	<!-- Banner section end  -->

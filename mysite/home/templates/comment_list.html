@@ -1,0 +1,57 @@
+{% extends "homebase.html" %}
+
+{% block title %} Comment List {%endblock%}
+
+{% load static %}
+{% block body %}
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{message.tags}}" role="alert">
+            {{message}}
+        </div>
+    {% endfor %}
+{% endif %}
+
+<div class="order-summary clearfix">
+    <div class="section-title">
+        <h3 class="title">My Comments</h3>
+    </div>
+    <table class="table" cellspacing="2">
+        <thead>
+        <tr>
+            <th class="text-left">Product</th>
+            <th class="text-center">Subject</th>
+            <th class="text-center">Rating</th>
+            <th class="text-center">Comment</th>
+            <th class="text-center">Date</th>
+            <th class="text-center">Status</th>
+            <th class="text-right">Delete</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for rs in comments %}
+            <tr>
+                <td class="qty text-left"><a href="/product/{{ rs.product_id }}">{{ rs.product }}</a> </td>
+                <td class="qty text-left">{{ rs.subject }}</td>
+                <td class="qty text-left">{{ rs.rating }}</td>
+                <td class="qty text-left">{{ rs.message }}</td>
+                <td class="qty text-left">{{ rs.create_at }}</td>
+                <td class="qty text-center">
+                    {% if rs.status == 1 %}
+                        True
+                    {% else %}
+                        False
+                    {% endif %}
+                </td>
+                <td class="text-right"><a href="/deletecomment/{{ rs.id }}" onclick="return confirm('Are you sure want to delete this comment ?')" ><strong>Delete</strong></a> </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+
+{% endblock %}

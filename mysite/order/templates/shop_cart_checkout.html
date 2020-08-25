@@ -1,0 +1,127 @@
+{% extends "homebase.html" %}
+
+{% block title %} CheckOut {%endblock%}
+
+{% block body %}
+<!-- Page info -->
+	<div class="page-top-info">
+		<div class="container">
+			<h4>Your cart</h4>
+			<div class="site-pagination">
+				<a href="">Home</a> /
+				<a href="">Your cart</a>
+			</div>
+		</div>
+	</div>
+	<!-- Page info end -->
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{message.tags}}" role="alert">
+            {{message}}
+        </div>
+    {% endfor %}
+{% endif %}
+
+	<!-- checkout section  -->
+	<section class="checkout-section spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 order-2 order-lg-1">
+					<form class="checkout-form" method="post">
+						{% csrf_token %}
+						<div class="cf-title">Billing Address</div>
+						<div class="row">
+							<div class="col-md-12">
+								<p>*Billing Information</p>
+								<input type="text" name="name" id="id_name" placeholder="First Name" required value="{{user.first_name}}">
+								<input type="text" name="surname" id="id_surname" placeholder="Last Name" required value="{{user.last_name}}">
+							</div>
+
+						</div>
+						<div class="row address-inputs">
+							<div class="col-md-12">
+								<input type="text" name="address" placeholder="Address" id="id_address" required >
+								<input type="text" name="city" placeholder="City" id="id_city" required >
+							</div>
+							<div class="col-md-6">
+								<input type="text" name="phone" placeholder="Phone Number" id="id_phone" required >
+							</div>
+							<button type="submit" class="site-btn submit-order-btn" >Complete Order</button>
+						</div>
+					</form>
+					<form class="checkout-form">
+						<div class="cf-title">Delievery Info</div>
+						<div class="row shipping-btns">
+							<div class="col-6">
+								<h4>Standard</h4>
+							</div>
+							<div class="col-6">
+								<div class="cf-radio-btns">
+									<div class="cfr-item">
+										<input type="radio" name="shipping" id="ship-1">
+										<label for="ship-1">Free</label>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="cf-title">Payment</div>
+						<ul class="payment-list">
+							<li>Credit / Debit card<a href="#"><img src="" alt=""></a></li>
+								<input type="text" name="address" placeholder="Name on Card" >
+								<input type="text" name="city" placeholder="Card Number" >
+						</ul>
+					</form>
+				</div>
+				<div class="col-lg-4 order-lg-3 card-right">
+					{%include 'user_menu.html' %}
+					</div>
+				</div>
+								<section class="cart-section spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8">
+
+					<div class="cart-table">
+						<h3>Your ShopCart</h3>
+						<div class="cart-table-warp">
+							<table>
+							<thead>
+								<tr>
+									<th class="product-th">Product</th>
+									<th class="quy-th">Quantity</th>
+									<th class="size-th">Price</th>
+								</tr>
+							</thead>
+							<tbody>
+                            {% for rs in shopcart %}
+								<tr>
+									<td class="product-col">
+										<img src="{{ rs.product.image.url }}" alt="">
+										<div class="pc-title">
+											<h4>{{ rs.product.title}}</h4>
+											<p>${{rs.product.price}}</p>
+										</div>
+									</td>
+									<td class="quy-col">
+										<div class="quantity">
+					                        <div class="pro-qty">
+												<input type="text" value="{{ rs.quantity }}">
+											</div>
+                    					</div>
+									</td>
+									<td class="size-col"><h4>{{rs.amount}}</h4></td>
+                                    <td></td>
+								</tr>
+                            {% endfor %}
+							</tbody>
+						</table>
+						</div>
+					</div>
+			</div>
+		</div>
+</section>
+			</div>
+		</div>
+	</section>
+	<!-- checkout section end -->
+{% endblock %}
